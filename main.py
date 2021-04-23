@@ -2,11 +2,23 @@ from report import Report
 from api import WaniKaniApi
 from utils import *
 from dotenv import dotenv_values, set_key
-
+import argparse
 
 ENV_FILE = ".env"
 ENV_API_KEY = "WANIKANI_API_KEY"
 MONTHS_AGO = 12
+SAVE_PATH = "report.csv"
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-m", "--months", help="Amount of months ago you learned an item to filter out. \n For example, the value `3` will only include items you learned at least 3 months ago.")
+parser.add_argument("-o", "--out", help="Path to save report csv to.")
+
+args = parser.parse_args()
+if args.months:
+    MONTHS_AGO = args.months
+if args.out:
+    SAVE_PATH = args.out
 
 # Check if api key is stored
 env_values = dotenv_values(ENV_FILE)

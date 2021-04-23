@@ -26,5 +26,5 @@ class Report:
         self.report = pandas.DataFrame([self.__make_report_item(assignment = item[0], subject = item[1]) for item in zipped_items])
         return self
 
-    def saveReport(self, path = "report.csv"):
+    def saveReport(self, path):
         self.report.to_csv(path)

@@ -45,3 +45,11 @@ python main.py
 ```
 
 The report will be saved to a file called `report.csv` by default.
+
+There are some command line arguments you can use as well:
+
+```
+-h, --help  Get Help
+-m, --months Set amount of minimum amount of months since encountering item to include in report (default is 12)
+-o, --out Path to save the CSV to
+```
