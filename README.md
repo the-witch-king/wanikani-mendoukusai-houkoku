@@ -1,6 +1,6 @@
 # WaniKani 面倒くさい報告
 
-Generates a report of troublesome items in your WaniKani account. These are items that are older than 12 months (1 year!) which means they are items that have given you some trobule in keeping them locked in your brain.
+Generates a report of troublesome items from your WaniKani account. These are items that are older than 12 months (1 year!) which means they are items that have given you some trobule in keeping them locked in your brain.
 
 Toss this CSV into any ol' spreadsheet software to get a nice overview.
 
