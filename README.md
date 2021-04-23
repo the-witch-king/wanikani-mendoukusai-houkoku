@@ -1,4 +1,4 @@
-# wanikani-mendoukusai-houkoku
+# WaniKani 面倒くさい報告
 
 Generates a report of troublesome items in your WaniKani account. These are items that are older than 12 months (1 year!) which means they are items that have given you some trobule in keeping them locked in your brain.
 
@@ -57,4 +57,4 @@ CLI Flags:
 
 ### Known Issues
 
-Currently the system does not handle _large_ sets of data well. This is related to trying to request _too_ many Subject IDs in the GET params. The fix is to split the requests up, but for all my data sets it has worked fine. This may happen if you have a _lot_ of items, and set the months threshold too low.
+Currently the system does not handle _large_ sets of data well. This is related to trying to request too many Subject IDs in the GET params. The fix is to split the requests up, but for all my data sets it has worked fine. This may happen if you have a _lot_ of items, and set the months threshold too low.
