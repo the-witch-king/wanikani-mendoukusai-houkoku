@@ -46,10 +46,15 @@ python main.py
 
 The report will be saved to a file called `report.csv` by default.
 
-There are some command line arguments you can use as well:
+CLI Flags:
 
 ```
--h, --help  Get Help
--m, --months Set amount of minimum amount of months since encountering item to include in report (default is 12)
--o, --out Path to save the CSV to
+-h,    --help      Get Help
+-o,    --out       Path to save the CSV to
+-k,    --key       Your WaniKani API Key
+-m,    --months    Minimum amount of months since learning an item (default is 12)
 ```
+
+### Known Issues
+
+Currently the system does not handle _large_ sets of data well. This is related to trying to request _too_ many Subject IDs in the GET params. The fix is to split the requests up, but for all my data sets it has worked fine. This may happen if you have a _lot_ of items, and set the months threshold too low.
