@@ -1,42 +1,47 @@
 import requests
 import sys
 
-# Not used...yet
-def get_user_level(api_key):
-    headers = { "Authorization": "Bearer " + api_key }
-    response_json = requests.get("https://api.wanikani.com/v2/user", headers = headers).json()
-    level = response_json["data"]["level"]
-    return level
+class WaniKaniApi:
+    def __init__(self, api_key: str):
+        self.headers = { "Authorization": "Bearer " + api_key }
 
-def get_all_assignments(api_key, url = "https://api.wanikani.com/v2/assignments", assignments = []):
-    headers = { "Authorization": "Bearer " + api_key}
-    params = { "burned": "false", "started": "true"}
-    response_json = requests.get(url, params = params, headers = headers).json()
-    items = assignments + response_json["data"]
-    next_url = response_json["pages"]["next_url"]
+    # Not used...yet
+    def get_user_level(self):
+        response_json = requests.get("https://api.wanikani.com/v2/user", headers = self.headers).json()
+        level = response_json["data"]["level"]
+        return level
 
-    percent = (len(assignments) / int(response_json["total_count"])) * 100
-    sys.stdout.write("Loading Assignments [%.2f%%]\r" % (percent))
-    sys.stdout.flush()
+    # Get all user's assignments
+    def get_all_assignments(self, url = "https://api.wanikani.com/v2/assignments", assignments = []):
+        params = { "burned": "false", "started": "true"}
+        response_json = requests.get(url, params = params, headers = self.headers).json()
+        items = assignments + response_json["data"]
+        next_url = response_json["pages"]["next_url"]
 
-    if next_url == None:
-        return items
+        percent = (len(assignments) / int(response_json["total_count"])) * 100
+        sys.stdout.flush()
+        sys.stdout.write("Loading Assignments [%.2f%%]\r" % (percent))
+        sys.stdout.flush()
 
-    return get_all_assignments(api_key, next_url, items)
+        if next_url == None:
+            return items
 
-def get_all_subjects(api_key, ids, url = "https://api.wanikani.com/v2/subjects", subjects = []):
-    headers = { "Authorization": "Bearer " + api_key}
-    params = { "ids": ids }
-    response_json = requests.get(url, params = params, headers = headers).json()
-    items = subjects + response_json["data"]
-    next_url = response_json["pages"]["next_url"]
+        return self.get_all_assignments(next_url, items)
 
-    percent = (len(subjects) / int(response_json["total_count"])) * 100
-    sys.stdout.write("Loading Subjects [%.2f%%]\r" % (percent))
-    sys.stdout.flush()
+    # Get all user's subjects
+    def get_all_subjects(self, ids = "", url = "https://api.wanikani.com/v2/subjects", subjects = []):
+        params = { "ids": ids }
+        response_json = requests.get(url, params = params, headers = self.headers).json()
+        items = subjects + response_json["data"]
+        next_url = response_json["pages"]["next_url"]
 
-    if next_url == None:
-        return items
+        percent = (len(subjects) / int(response_json["total_count"])) * 100
+        sys.stdout.flush()
+        sys.stdout.write("Loading Subjects [%.2f%%]\r" % (percent))
+        sys.stdout.flush()
 
-    return get_all_subjects(api_key, ids, next_url, items)
+        if next_url == None:
+            return items
+
+        return self.get_all_subjects(ids, next_url, items)
 
